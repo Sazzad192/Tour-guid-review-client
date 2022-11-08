@@ -1,11 +1,24 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../../../pic/logo.jpg'
+import { AuthContext } from '../../context/AuthProvider/AuthProvider';
 
 const Nav = () => {
 
+    const {user, logOut} = useContext(AuthContext);
+
+    const logoutbtn = () =>{
+        logOut()
+        .then(() => {
+            // Sign-out successful.
+          }).catch((error) => {
+            // An error happened.
+          });          
+    }
+
     const navItems = <>
         <li><Link to={'/'}>Home</Link></li>
+        <li><Link to={'/addService'}>Add-Service</Link></li>
     </>
 
     return (
@@ -27,7 +40,10 @@ const Nav = () => {
                 </ul>
             </div>
             <div className="navbar-end">
-                <a className="btn">Login</a>
+                {
+                    user?.uid ? <Link onClick={logoutbtn} to={'/login'} className="btn btn-ghost"><p >Logout</p></Link> :
+                    <Link to={'/login'} className="btn"><p >Login</p></Link>
+                }
             </div>
         </div>
     );
