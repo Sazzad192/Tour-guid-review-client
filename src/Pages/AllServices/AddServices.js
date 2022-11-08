@@ -5,6 +5,40 @@ const AddServices = () => {
     const handelSubmit= event =>{
         event.preventDefault()
         const form = event.target;
+        const name = form.name.value;
+        const img = form.image.value;
+        const price = form.price.value;
+        const ratting = form.ratting.value;
+        const details = form.details.value;
+        const location = form.location.value;
+        const duration = form.duration.value;
+
+        const services ={
+            ServiceName: name,
+            img,
+            price,
+            location,
+            duration,
+            ratting,
+            ServiceDetails: details
+        }
+
+        fetch(`http://localhost:5000/services`, {
+            method: 'POST',
+            headers: {
+            'Content-type': 'application/json',
+            },
+            body: JSON.stringify(services)
+        })
+        .then(res => res.json())
+        .then(data => {
+            if(data.acknowledged){
+                alert('Service added successfully')
+            }
+            else{
+                alert('Something went wrong! check again')
+            }
+        })
     }
 
     return (
@@ -15,30 +49,42 @@ const AddServices = () => {
                         <label className="label">
                             <span className="label-text">Service Name</span>
                         </label>
-                        <input type="text" placeholder="Service Name" className="input input-bordered" />
+                        <input type="text" name='name' placeholder="Service Name" className="input input-bordered" />
                     </div>
                     <div className="form-control">
                         <label className="label">
                             <span className="label-text">Image Link</span>
                         </label>
-                        <input type="text" placeholder="Image" className="input input-bordered" />
+                        <input type="text" name='image' placeholder="Image" className="input input-bordered" />
                     </div>
                     <div className="form-control">
                         <label className="label">
                             <span className="label-text">Price</span>
                         </label>
-                        <input type="text" placeholder="Enter Price" className="input input-bordered" />
+                        <input type="text" name='price' placeholder="Enter Price" className="input input-bordered" />
+                    </div>
+                    <div className="form-control">
+                        <label className="label">
+                            <span className="label-text">Location</span>
+                        </label>
+                        <input type="text" name='location' placeholder="Location" className="input input-bordered" />
+                    </div>
+                    <div className="form-control">
+                        <label className="label">
+                            <span className="label-text">Duration</span>
+                        </label>
+                        <input type="text" name='duration' placeholder="Tour Duration" className="input input-bordered" />
                     </div>
                     <div className="form-control">
                         <label className="label">
                             <span className="label-text">Ratting</span>
                         </label>
-                        <input type="text" placeholder="Ratting out of 5" className="input input-bordered" />
+                        <input type="text" name='ratting' placeholder="Ratting out of 5" className="input input-bordered" />
                     </div>
                 </div>
-                <textarea className="textarea textarea-info mt-6 h-32" placeholder="Bio"></textarea>
+                <textarea name='details' className="textarea textarea-info mt-6 h-32" placeholder="Bio"></textarea>
                 <div className="form-control mt-6">
-                <button type='submit' className="btn btn-secondary">Login</button>
+                    <button type='submit' className="btn btn-secondary">Add service</button>
                 </div>
             </form>
         </div>
