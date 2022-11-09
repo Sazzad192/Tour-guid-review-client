@@ -12,6 +12,23 @@ const Review = () => {
         .then(data => setReview(data))
     } ,[user?.email])
 
+    const handelDelete= id =>{
+        const proceed = window.confirm('Are you sure, You want to delete this review');
+        if(proceed){
+            fetch(`http://localhost:5000/review/${id}`,{
+                method:'DELETE'
+            })
+            .then(res=> res.json())
+            .then(data => {
+                if(data.deletedCount > 0){
+                    alert('delete successfully');
+                    const reamining = review.filter(element => element._id !== id);
+                    setReview(reamining);
+                }
+            })
+        }
+    }
+
     return (
         <div>
             <p className='my-5 text-xl font-bold text-center'>My Review which I gave</p>
@@ -31,7 +48,8 @@ const Review = () => {
                         {
                             review.map(element => <ReviewEdit
                             key={element._id}
-                            tableData = {element}></ReviewEdit> )
+                            tableData = {element}
+                            handelDelete={handelDelete}></ReviewEdit> )
                         }
                         
                     </tbody>
