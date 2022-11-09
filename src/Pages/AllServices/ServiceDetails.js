@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState, useRef } from 'react';
 import { Link, useLoaderData } from 'react-router-dom';
 import { AuthContext } from '../context/AuthProvider/AuthProvider';
 import { MdLocationPin,MdAvTimer } from 'react-icons/md';
@@ -49,8 +49,11 @@ const ServiceDetails = () => {
                 else{
                     alert('Something went wrong! check again')
                 }
-            }): alert('please login first')
+            }): ref.current.click();
         }
+
+        const ref = useRef(null)
+        
 
     return (
         <div className='w-5/6 mx-auto my-10'>
@@ -74,6 +77,22 @@ const ServiceDetails = () => {
             */}
             <div className='my-12 mx-auto bg-slate-300 rounded-lg sm:w-full lg:w-3/4 '>
                 <form onSubmit={handelSubmit}  className="card-body border-r-2 rounded-lg sm:flex-col lg:flex-row items-center justify-start">
+
+                    {/* The button to open modal */}
+                        <label htmlFor="my-modal-3" ref={ref} className="btn hidden">open modal</label>
+                        <input type="checkbox" id="my-modal-3" className="modal-toggle" />
+                        <div className="modal">
+                            <div className="modal-box bg-red-300 text-black relative">
+                                <label htmlFor="my-modal-3" className="btn btn-outline text-white btn-sm btn-circle outline-white absolute right-2 top-2">✕</label>
+                                <h3 className="text-lg text-center font-bold">!!!!! Please Login first !!!!!</h3>
+                                <p className="py-4">You've to login first. Click login button and I will redirect to login</p>
+                                <div className="modal-action">
+                                    <Link to={'/login'} className="btn btn-outline text-black">Login</Link>
+                                </div>
+                            </div>
+                        </div>
+                    {/* modal End  */}
+                    
                     <div className='sm:w-1/5 lg:w-1/12'>
                         <div className="avatar online placeholder">
                             <div className="bg-neutral-focus text-neutral-content rounded-full w-12">
@@ -83,7 +102,7 @@ const ServiceDetails = () => {
                     </div>
                     <input name='review' className="textarea textarea-info h-32 sm:w-full h-14 lg:w-1/2" placeholder="Bio"></input>
                     <div className=" sm:w-full mx-auto lg:w-1/4">
-                        <button type='submit' className="btn w-1/2 btn-secondary flex justify-center">Submit review</button>
+                        <button type='submit'  className="btn w-1/2 btn-secondary flex justify-center">Submit review</button>
                     </div>
                 </form>
             </div> 
