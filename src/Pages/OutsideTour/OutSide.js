@@ -2,7 +2,9 @@ import React from 'react';
 import cox from '../../pic/tour/coxsbaza-development.jpg'
 import kashmir from '../../pic/tour/Kashmir.jpg'
 import ladakh from '../../pic/tour/Ladakh.jpg'
-import { MdLocationPin,MdAvTimer } from 'react-icons/md';
+import { MdLocationPin } from 'react-icons/md';
+import { PhotoProvider, PhotoView } from 'react-photo-view';
+import 'react-photo-view/dist/react-photo-view.css';
 
 const OutSide = () => {
     return (
@@ -12,21 +14,35 @@ const OutSide = () => {
 
             <div className='grid w-11/12 mx-auto my-10 sm:grid-cols-1 lg:grid-cols-3 gap-4'>
                 <div className="card w-10/12 bg-base-300 text-primary shadow-xl">
-                    <figure><img src={cox} alt="Shoes" /></figure>
+                    <PhotoProvider>
+                        <PhotoView src={cox}>
+                            <figure><img src={cox} alt="cox" /></figure>
+                        </PhotoView>
+                    </PhotoProvider>
+                    
                     <div className="card-body">
                         <h2 className="card-title">Cox-Bazar</h2>
                     <p className='flex items-start'> <MdLocationPin className='text-xl'/> Bangladesh </p>
                     </div>
                 </div>
                 <div className="card w-10/12 bg-base-300 text-primary shadow-xl">
-                    <figure><img src={kashmir} alt="Shoes" /></figure>
+                    <PhotoProvider>
+                        <PhotoView src={kashmir}>
+                        <figure><img src={kashmir} alt="Shoes" /></figure>
+                        </PhotoView>
+                    </PhotoProvider>
                     <div className="card-body">
                         <h2 className="card-title">Kashmir</h2>
                     <p className='flex items-start'> <MdLocationPin className='text-xl'/> India </p>
                     </div>
                 </div>
                 <div className="card w-10/12 bg-base-300 text-primary shadow-xl">
-                    <figure><img src={ladakh} alt="Shoes" /></figure>
+                    <PhotoProvider>
+                        <PhotoView src={ladakh}>
+                            <figure><img src={ladakh} alt="Shoes" /></figure>
+                        </PhotoView>
+                    </PhotoProvider>
+                    
                     <div className="card-body">
                         <h2 className="card-title">ladakh</h2>
                     <p className='flex items-start'> <MdLocationPin className='text-xl'/> India </p>
