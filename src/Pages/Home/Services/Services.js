@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import ServiceCart from './ServiceCart';
+import ServiceCart from '../../Shared/ServiceCart/ServiceCart';
 
 const Services = () => {
     const [services, setServices] = useState([]);
@@ -22,8 +22,7 @@ const Services = () => {
                 }
             </div>
             <div className='mt-5'>
-            <Link className="link link-primary ">show more</Link>
-
+                <Link to={'/services'} className="link link-primary ">show more</Link>
             </div>
         </div>
     );

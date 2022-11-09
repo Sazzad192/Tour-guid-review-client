@@ -18,7 +18,14 @@ const Nav = () => {
 
     const navItems = <>
         <li><Link to={'/'}>Home</Link></li>
-        <li><Link to={'/addService'}>Add-Service</Link></li>
+        <li><Link to={'/services'}>My Service</Link></li>
+        {
+            user?.uid ?  <li><Link to={'/addService'}>Add-Service</Link></li> :
+            <li></li>
+        }
+        {
+           user?.uid ? <li><Link to={'/addService'}>My-Review</Link></li> : <li></li>
+        }
     </>
 
     return (
@@ -41,7 +48,7 @@ const Nav = () => {
             </div>
             <div className="navbar-end">
                 {
-                    user?.uid ? <Link onClick={logoutbtn} to={'/login'} className="btn btn-ghost"><p >Logout</p></Link> :
+                    user?.uid ? <Link onClick={logoutbtn} to={'/login'} className="btn"><p>Logout</p></Link> :
                     <Link to={'/login'} className="btn"><p >Login</p></Link>
                 }
             </div>

@@ -1,6 +1,6 @@
 import React from 'react';
 import About from '../About/About';
-import ActivitiesPicture from './ActivitiesPicture/ActivitiesPicture';
+import OutSide from '../OutsideTour/OutSide';
 import Header from './Header';
 import Services from './Services/Services';
 
@@ -10,7 +10,7 @@ const Home = () => {
             <Header></Header>
             <Services></Services>
             <About></About>
-            <ActivitiesPicture></ActivitiesPicture>
+            <OutSide></OutSide>
         </div>
     );
 };
