@@ -24,7 +24,7 @@ const Nav = () => {
             <li></li>
         }
         {
-           user?.uid ? <li><Link to={'/addService'}>My-Review</Link></li> : <li></li>
+           user?.uid ? <li><Link to={'/review'}>My-Review</Link></li> : <li></li>
         }
     </>
 

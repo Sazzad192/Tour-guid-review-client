@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Link, useLoaderData } from 'react-router-dom';
 import { AuthContext } from '../context/AuthProvider/AuthProvider';
 import { MdLocationPin,MdAvTimer } from 'react-icons/md';
-import ReviewCard from '../../Review/ReviewCard';
+import ReviewCard from '../Review/ReviewCard';
 
 const ServiceDetails = () => {
     const serviceDetails = useLoaderData();
@@ -24,35 +24,33 @@ const ServiceDetails = () => {
         const form = event.target;
         const reviewText = form.review.value;
 
-        const reviewData = {
-            UserName: user?.displayName,
-            UserImg: user?.photoURL,
-            Useremail: user?.email,
-            Time: time,
-            ServiceId: _id,
-            reviewText
+            const reviewData = {
+                UserName: user?.displayName,
+                UserImg: user?.photoURL,
+                UserEmail: user?.email,
+                Time: time,
+                ServiceId: _id,
+                reviewText
+            }
+            user?.uid ? 
+            fetch('http://localhost:5000/reviews',{
+                method: 'POST',
+                headers: {
+                'Content-type': 'application/json',
+                },
+                body: JSON.stringify(reviewData)
+            })
+            .then(res => res.json())
+            .then(data => {
+                if(data.acknowledged){
+                    alert('Review added successfully')
+                    setReview([reviewData,...review])
+                }
+                else{
+                    alert('Something went wrong! check again')
+                }
+            }): alert('please login first')
         }
-
-        fetch('http://localhost:5000/reviews',{
-            method: 'POST',
-            headers: {
-            'Content-type': 'application/json',
-            },
-            body: JSON.stringify(reviewData)
-        })
-        .then(res => res.json())
-        .then(data => {
-            if(data.acknowledged){
-                alert('Review added successfully')
-                setReview([...review, reviewData])
-            }
-            else{
-                alert('Something went wrong! check again')
-            }
-        })
-    }
-
-    
 
     return (
         <div className='w-5/6 mx-auto my-10'>
@@ -74,9 +72,7 @@ const ServiceDetails = () => {
             {/* 
             ----------------------------- Review form start ------------------------------------------------ 
             */}
-            {
-                user?.uid ? 
-                <div className='my-12 mx-auto bg-slate-300 rounded-lg sm:w-full lg:w-3/4 '>
+            <div className='my-12 mx-auto bg-slate-300 rounded-lg sm:w-full lg:w-3/4 '>
                 <form onSubmit={handelSubmit}  className="card-body border-r-2 rounded-lg sm:flex-col lg:flex-row items-center justify-start">
                     <div className='sm:w-1/5 lg:w-1/12'>
                         <div className="avatar online placeholder">
@@ -90,8 +86,7 @@ const ServiceDetails = () => {
                         <button type='submit' className="btn w-1/2 btn-secondary flex justify-center">Submit review</button>
                     </div>
                 </form>
-                </div> : <div></div>
-            }
+            </div> 
             
 
             {/* review cart  */}
