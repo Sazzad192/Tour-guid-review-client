@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
 import { CiEdit } from 'react-icons/ci';
+import { FaUserAlt } from 'react-icons/fa';
 
 const ReviewEdit = ({tableData, handelDelete, handelEdit}) => {
     const {_id,UserImg, UserName, Time, reviewText} = tableData;
@@ -17,8 +18,12 @@ const ReviewEdit = ({tableData, handelDelete, handelEdit}) => {
             <td>
                 <div className="flex items-center space-x-3">
                     <div className="avatar">
-                    <div className="mask mask-squircle w-12 h-12">
-                        <img src={UserImg} alt="Avatar" />
+                    <div className="mask mask-squircle w-full">
+                        {
+                            UserImg ?
+                            <img src={UserImg} alt="Avatar" />:
+                            <FaUserAlt />
+                        }
                     </div>
                     </div>
                     <div>

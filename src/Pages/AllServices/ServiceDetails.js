@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState, useRef } from 'react';
 import { Link, useLoaderData } from 'react-router-dom';
 import { AuthContext } from '../context/AuthProvider/AuthProvider';
 import { MdLocationPin,MdAvTimer } from 'react-icons/md';
+import { FaUserAlt } from 'react-icons/fa';
 import ReviewCard from '../Review/ReviewCard';
 
 const ServiceDetails = () => {
@@ -96,7 +97,12 @@ const ServiceDetails = () => {
                     <div className='sm:w-1/5 lg:w-1/12'>
                         <div className="avatar online placeholder">
                             <div className="bg-neutral-focus text-neutral-content rounded-full w-12">
-                                <img src={user?.photoURL} alt="" />
+                                {
+                                    user?.photoURL ?
+                                    <img src={user?.photoURL} alt="" /> :
+                                    <FaUserAlt/>
+                                }
+                                
                             </div>
                         </div>
                     </div>

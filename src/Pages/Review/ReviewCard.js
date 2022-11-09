@@ -1,4 +1,5 @@
 import React from 'react';
+import { FaUserAlt } from 'react-icons/fa';
 
 const ReviewCard = ({data}) => {
     const {UserName, UserImg, reviewText,Time} = data;
@@ -7,8 +8,12 @@ const ReviewCard = ({data}) => {
         <tr>
             <td>
                 <div className="avatar">
-                    <div className="mask mask-squircle w-12 h-12">
-                        <img src={UserImg} alt="Avatar" />
+                    <div className="mask mask-squircle max-w-sm max-h-12">
+                        {
+                            UserImg ?
+                            <img src={UserImg} alt="Avatar" /> :
+                            <FaUserAlt/>
+                        }
                     </div>
                 </div>
             </td>

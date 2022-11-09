@@ -1,6 +1,8 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
+import { toast, ToastContainer } from 'react-toastify';
 import { AuthContext } from '../context/AuthProvider/AuthProvider';
 import ReviewEdit from './ReviewEdit';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Review = () => {
     const {user} = useContext(AuthContext);
@@ -24,7 +26,16 @@ const Review = () => {
             .then(res=> res.json())
             .then(data => {
                 if(data.deletedCount > 0){
-                    alert('delete successfully');
+                    toast.error('Deleted successfully', {
+                        position: "top-center",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "colored",
+                        });
                     const reamining = review.filter(element => element._id !== id);
                     setReview(reamining);
                 }
@@ -48,7 +59,6 @@ const Review = () => {
 
     return (
         <div className='mb-52'>
-            <p className='my-5 text-xl font-bold text-center'>My Review which I gave</p>
             {/* The button to open modal */}
             <label htmlFor="my-modal-3" ref={ref} className="btn hidden">open modal</label>
             <input type="checkbox" id="my-modal-3" className="modal-toggle" />
@@ -66,28 +76,37 @@ const Review = () => {
                 </div>
             </div>
             {/* modal End  */}
-            <div className="overflow-x-auto w-5/6 mx-auto">
-                <table className="table w-full">
-                    <thead>
-                        <tr>
-                            <th> Delete </th>
-                            <th>Your Identity</th>
-                            <th>Review</th>
-                            <th>Time</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {
-                            review.map(element => <ReviewEdit
-                            key={element._id}
-                            tableData = {element}
-                            handelDelete={handelDelete}
-                            handelEdit={handelEdit}></ReviewEdit> )
-                        }
-                    </tbody>
-                </table>
+
+            {
+            review.length === 0 ?
+            <p className='text-center text-2xl font-bold text-red-300'>No reviews were added Yet</p> :
+            <div>
+                <p className='my-5 text-xl font-bold text-center'>My Review</p>
+                <div className="overflow-x-auto w-5/6 mx-auto">
+                    <table className="table w-full">
+                        <thead>
+                            <tr>
+                                <th> Delete </th>
+                                <th>Your Identity</th>
+                                <th>Review</th>
+                                <th>Time</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {
+                                review.map(element => <ReviewEdit
+                                key={element._id}
+                                tableData = {element}
+                                handelDelete={handelDelete}
+                                handelEdit={handelEdit}></ReviewEdit> )
+                            }
+                        </tbody>
+                        <ToastContainer />
+                    </table>
+                </div>
             </div>
+            }
         </div>
     );
 };
