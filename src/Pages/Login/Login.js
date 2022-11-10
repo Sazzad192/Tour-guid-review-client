@@ -1,18 +1,17 @@
 import { GoogleAuthProvider } from 'firebase/auth';
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { AiOutlineGoogle, AiFillGithub} from 'react-icons/ai';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, redirect, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthProvider/AuthProvider';
 
 const Login = () => {
-    
+    const [error, setError] = useState('');
     const {userSignin, googleUser} = useContext(AuthContext);
     const provaider = new GoogleAuthProvider();
     const navigate = useNavigate();
     const location = useLocation();
 
     const from = location.state?.from?.pathname || '/';
-
 
     const handelSubmit = event =>{
         event.preventDefault()
@@ -30,8 +29,7 @@ const Login = () => {
             navigate(from, {replace:true})
           })
           .catch((error) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
+            setError(error.message);
           });
         
     }
@@ -45,15 +43,12 @@ const Login = () => {
             // The signed-in user info.
             const user = result.user;
             console.log(user)
+            redirect('/')
             // ...
           }).catch((error) => {
-            // Handle Errors here.
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            // The email of the user's account used.
-            const email = error.customData.email;
-            // The AuthCredential type that was used.
-            const credential = GoogleAuthProvider.credentialFromError(error);
+            setError(error.message);
+            setError(error.customData.email);
+            setError(GoogleAuthProvider.credentialFromError(error));
             // ...
           });
     }
@@ -85,6 +80,7 @@ const Login = () => {
                         <div className="form-control mt-6">
                         <button type='submit' className="btn btn-primary">Login</button>
                         </div>
+                        <p className='text-red-400 text-lg'>{error}</p>
                         <hr className='my-4' />
                         <div className='flex justify-evenly'>
                             <button onClick={handelGoogle} className='btn'><AiOutlineGoogle className='text-bold'/></button>

@@ -1,4 +1,5 @@
 import { createBrowserRouter } from "react-router-dom"
+import Error from "../error/Error"
 import Main from "../Layout/Main"
 import AddServices from "../Pages/AllServices/AddServices"
 import ServiceDetails from "../Pages/AllServices/ServiceDetails"
@@ -56,6 +57,10 @@ const route = createBrowserRouter([
                 loader:({params}) => fetch(`http://localhost:5000/update/${params.id}`)
             }
         ]
+    },
+    {
+        path:'*',
+        element:<Error></Error>
     }
 ])
 

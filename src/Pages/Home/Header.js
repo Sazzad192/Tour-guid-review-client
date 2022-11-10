@@ -23,7 +23,6 @@ const Header = () => {
             <div className="w-3/4">
                 <h1 className="mb-5 text-2xl lg:text-5xl font-bold" > Hello, I am Working as a <br /> <span ref={ref}></span> </h1>
                 <p className="mb-5 ">Try to provide best service from my side. You do just relax, I will reduce your pain. No rent tension in tour. Relax and enjoy the tour</p>
-                <button className="btn btn-primary">Get Started</button>
             </div>
         </div>
         </div>

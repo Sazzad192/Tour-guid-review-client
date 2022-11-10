@@ -13,7 +13,9 @@ const Services = () => {
     return (
         <div className='w-10/12 mx-auto my-28 text-right text-white'>
             <h2 className='text-4xl font-bold text-center'>Services</h2>
-            <h2 className='text-lg mx-auto text-center mt-3 sm:w-10/12 lg:w-1/2'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut placeat culpa quaerat dolor assumenda nihil vitae illo rerum, praesentium doloribus! Veritatis, sequi necessitatibus? Iste fuga, doloremque dolore voluptatem sit quaerat!</h2>
+            <h2 className='text-lg mx-auto text-center mt-3 sm:w-10/12 lg:w-1/2'>
+            Try to provide best service from my side. You do just relax, I will reduce your pain. No rent tension in tour. Relax and enjoy the tour. Here are the package for you.
+            </h2>
             <div className='grid sm:grid-cols-1 lg:grid-cols-3 gap-4 mt-9'>
                 {
                     services.map(element => <ServiceCart

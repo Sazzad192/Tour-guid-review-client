@@ -4,9 +4,11 @@ import { AuthContext } from '../context/AuthProvider/AuthProvider';
 import ReviewEdit from './ReviewEdit';
 import 'react-toastify/dist/ReactToastify.css';
 import useTitle from '../../hook/useTitle';
+import { useNavigate } from 'react-router-dom';
 
 const Review = () => {
     const {user} = useContext(AuthContext);
+    const navigate = useNavigate()
     useTitle('Review')
 
     const [review, setReview] = useState([]);
@@ -65,10 +67,13 @@ const Review = () => {
             .then(res => res.json())
             .then(data => {
                 if(data.matchedCount>0){
+                    refClose.current.click();
+                    navigate('/review')
                     toast('Data updated, just do a reload')
                 }
             })
     }
+    const refClose = useRef(null)
 
     const handelInputChange = event =>{
         const field = event.target.name;
@@ -86,7 +91,7 @@ const Review = () => {
             <input type="checkbox" id="my-modal-3" className="modal-toggle" />
             <div className="modal">
                 <div className="modal-box text-black relative">
-                    <label htmlFor="my-modal-3" className="btn btn-outline text-white btn-sm btn-circle outline-white absolute right-2 top-2">✕</label>
+                    <label ref={refClose} htmlFor="my-modal-3" className="btn btn-outline text-white btn-sm btn-circle outline-white absolute right-2 top-2">✕</label>
                     <h3 className="text-lg text-center text-white font-bold">--- Edit Your Review ---</h3>
                     <div className="py-4">
                         <form onSubmit={handelUpdate}  className="card-body rounded-lg ">

@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AiOutlineGoogle, AiFillGithub} from 'react-icons/ai';
 import { AuthContext } from '../context/AuthProvider/AuthProvider';
@@ -6,7 +6,8 @@ import { GoogleAuthProvider } from 'firebase/auth';
 
 const Signup = () => {
 
-    const {createUser, googleUser} = useContext(AuthContext);
+    const [error, setError]=useState('');
+    const {createUser, googleUser, updateUserProfile} = useContext(AuthContext);
     const provaider = new GoogleAuthProvider();
 
 
@@ -14,6 +15,7 @@ const Signup = () => {
         event.preventDefault()
         const form = event.target;
         const name = form.name.value;
+        const photoURL =form.photoURL.value;
         const email = form.email.value;
         const pass = form.password.value;
 
@@ -21,13 +23,25 @@ const Signup = () => {
         .then((userCredential) => {
             // Signed in 
             const user = userCredential.user;
+            setError('')
+            updateUserAllData(name, photoURL)
+            form.reset()
             // ...
           })
           .catch((error) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            // ..
+            setError(error.message);
           });
+    }
+
+    //user name & photo set 
+    const updateUserAllData = (name,photoURL) =>{
+        const profile={
+            displayName:name,
+            photoURL: photoURL
+        }
+        updateUserProfile(profile)
+        .then(() => {})
+        .catch((error) => setError(error));
     }
 
     const googleBtn =() =>{
@@ -38,16 +52,10 @@ const Signup = () => {
             const token = credential.accessToken;
             // The signed-in user info.
             const user = result.user;
-            console.log(user)
             // ...
           }).catch((error) => {
             // Handle Errors here.
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            // The email of the user's account used.
-            const email = error.customData.email;
-            // The AuthCredential type that was used.
-            const credential = GoogleAuthProvider.credentialFromError(error);
+            setError(error.message);
             // ...
           });
     }
@@ -70,6 +78,13 @@ const Signup = () => {
 
                     <div className="form-control">
                     <label className="label">
+                        <span className="label-text">Photo URL</span>
+                    </label>
+                    <input type="text" name='photoURL' placeholder="Submit your IBBM photo link" className="input input-bordered" />
+                    </div>
+
+                    <div className="form-control">
+                    <label className="label">
                         <span className="label-text">Email</span>
                     </label>
                     <input type="text" name='email' placeholder="email" className="input input-bordered" />
@@ -81,8 +96,9 @@ const Signup = () => {
                         <input type="password" name='password' placeholder="password" className="input input-bordered" />
                     </div>
                     <div className="form-control mt-6">
-                    <button type='submit' className="btn btn-primary">Signup</button>
+                        <button type='submit' className="btn btn-primary">Signup</button>
                     </div>
+                    <p className='text-red-400 text-lg'>{error}</p>
                     <hr className='my-4' />
                     <div className='flex justify-evenly'>
                         <button onClick={googleBtn} className='btn'><AiOutlineGoogle className='text-bold'/></button>
