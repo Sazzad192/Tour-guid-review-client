@@ -32,12 +32,12 @@ const route = createBrowserRouter([
             {
                 path:'/services',
                 element:<ServicesAll></ServicesAll>,
-                loader: () => fetch('http://localhost:5000/servicesAll')
+                loader: () => fetch('https://review-server-sazzad192.vercel.app/servicesAll')
             },
             {
                 path:'/services/:id',
                 element:<ServiceDetails></ServiceDetails>,
-                loader: ({params}) =>fetch(`http://localhost:5000/services/${params.id}`)
+                loader: ({params}) =>fetch(`https://review-server-sazzad192.vercel.app/services/${params.id}`)
             },
             {
                 path:'/review',
@@ -54,7 +54,7 @@ const route = createBrowserRouter([
             {
                 path:'/update/:id',
                 element:<Update></Update>,
-                loader:({params}) => fetch(`http://localhost:5000/update/${params.id}`)
+                loader:({params}) => fetch(`https://review-server-sazzad192.vercel.app/update/${params.id}`)
             }
         ]
     },

@@ -1,11 +1,11 @@
 import React, { useContext, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { AiOutlineGoogle, AiFillGithub} from 'react-icons/ai';
 import { AuthContext } from '../context/AuthProvider/AuthProvider';
 import { GoogleAuthProvider } from 'firebase/auth';
 
 const Signup = () => {
-
+    const navigate = useNavigate();
     const [error, setError]=useState('');
     const {createUser, googleUser, updateUserProfile} = useContext(AuthContext);
     const provaider = new GoogleAuthProvider();
@@ -20,9 +20,9 @@ const Signup = () => {
         const pass = form.password.value;
 
         createUser(email, pass)
-        .then((userCredential) => {
-            // Signed in 
-            const user = userCredential.user;
+        .then(result => {
+            navigate('/')
+            const user = result.user;
             setError('')
             updateUserAllData(name, photoURL)
             form.reset()
@@ -47,11 +47,8 @@ const Signup = () => {
     const googleBtn =() =>{
         googleUser(provaider)
         .then((result) => {
-            // This gives you a Google Access Token. You can use it to access the Google API.
-            const credential = GoogleAuthProvider.credentialFromResult(result);
-            const token = credential.accessToken;
-            // The signed-in user info.
             const user = result.user;
+            navigate('/')
             // ...
           }).catch((error) => {
             // Handle Errors here.
@@ -73,27 +70,27 @@ const Signup = () => {
                     <label className="label">
                         <span className="label-text">Name</span>
                     </label>
-                    <input type="text" name='name' placeholder="Name" className="input input-bordered" />
+                    <input type="text" name='name' placeholder="Name" className="input input-bordered" required />
                     </div>
 
                     <div className="form-control">
                     <label className="label">
                         <span className="label-text">Photo URL</span>
                     </label>
-                    <input type="text" name='photoURL' placeholder="Submit your IBBM photo link" className="input input-bordered" />
+                    <input type="text" name='photoURL' placeholder="Submit your IBBM photo link" className="input input-bordered" required />
                     </div>
 
                     <div className="form-control">
                     <label className="label">
                         <span className="label-text">Email</span>
                     </label>
-                    <input type="text" name='email' placeholder="email" className="input input-bordered" />
+                    <input type="email" name='email' placeholder="email" className="input input-bordered" required />
                     </div>
                     <div className="form-control">
                         <label className="label">
                             <span className="label-text">Password</span>
                         </label>
-                        <input type="password" name='password' placeholder="password" className="input input-bordered" />
+                        <input type="password" name='password' placeholder="password" className="input input-bordered" required />
                     </div>
                     <div className="form-control mt-6">
                         <button type='submit' className="btn btn-primary">Signup</button>

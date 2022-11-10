@@ -15,7 +15,7 @@ const ServiceDetails = () => {
     let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
 
     useEffect(()=>{
-        fetch(`http://localhost:5000/review?ServiceId=${_id}`)
+        fetch(`https://review-server-sazzad192.vercel.app/review?ServiceId=${_id}`)
         .then(res => res.json())
         .then(data => setReview(data))
     },[])
@@ -34,7 +34,7 @@ const ServiceDetails = () => {
                 reviewText
             }
             user?.uid ? 
-            fetch('http://localhost:5000/reviews',{
+            fetch('https://review-server-sazzad192.vercel.app/reviews',{
                 method: 'POST',
                 headers: {
                 'Content-type': 'application/json',

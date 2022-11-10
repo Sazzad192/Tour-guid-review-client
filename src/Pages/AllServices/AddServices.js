@@ -1,8 +1,10 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import useTitle from '../../hook/useTitle';
 
 const AddServices = () => {
+    const navigate = useNavigate()
     useTitle('Add-services')
 
     const handelSubmit= event =>{
@@ -26,7 +28,7 @@ const AddServices = () => {
             ServiceDetails: details
         }
 
-        fetch(`http://localhost:5000/services`, {
+        fetch(`https://review-server-sazzad192.vercel.app/services`, {
             method: 'POST',
             headers: {
             'Content-type': 'application/json',
@@ -47,6 +49,7 @@ const AddServices = () => {
                     theme: "colored",
                     });
                     form.reset()
+                    navigate('/services')
             }
             else{
                 alert('Something went wrong! check again')

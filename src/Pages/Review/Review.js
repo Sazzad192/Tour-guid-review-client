@@ -16,7 +16,7 @@ const Review = () => {
     const [updated, setUpdated] = useState(data);
 
     useEffect(()=>{
-        fetch(`http://localhost:5000/reviews?UserEmail=${user?.email}`)
+        fetch(`https://review-server-sazzad192.vercel.app/reviews?UserEmail=${user?.email}`)
         .then(res => res.json())
         .then(data => setReview(data))
     } ,[user?.email])
@@ -24,7 +24,7 @@ const Review = () => {
     const handelDelete= id =>{
         const proceed = window.confirm('Are you sure, You want to delete this review');
         if(proceed){
-            fetch(`http://localhost:5000/review/${id}`,{
+            fetch(`https://review-server-sazzad192.vercel.app/review/${id}`,{
                 method:'DELETE'
             })
             .then(res=> res.json())
@@ -49,7 +49,7 @@ const Review = () => {
 
     const handelEdit = id =>{
         ref.current.click();
-        fetch(`http://localhost:5000/review/${id}`)
+        fetch(`https://review-server-sazzad192.vercel.app/review/${id}`)
         .then(res => res.json())
         .then(data => setData(data))
     }
@@ -57,7 +57,7 @@ const Review = () => {
 
     const handelUpdate= event =>{
         event.preventDefault()
-        fetch(`http://localhost:5000/review/${data._id}`,{
+        fetch(`https://review-server-sazzad192.vercel.app/review/${data._id}`,{
                 method:'PUT',
                 headers: {
                     'content-type' : 'application/json'
