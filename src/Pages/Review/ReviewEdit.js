@@ -37,8 +37,8 @@ const ReviewEdit = ({tableData, handelDelete, handelEdit}) => {
             </td>
             <td>{Time}</td>
             <th>
-                {/* <button onClick={()=>handelEdit(_id)} htmlFor="my-modal-3" className="btn btn-outline btn-sm">Edit <CiEdit/></button> */}
-                <Link to={`/update/${_id}`} className='btn btn-outline'>Edit</Link>
+                <button onClick={()=>handelEdit(_id)} htmlFor="my-modal-3" className="btn btn-outline btn-sm">Edit <CiEdit/></button>
+                {/* <Link to={`/update/${_id}`} className='btn btn-outline'>Edit</Link> */}
             </th>
         </tr>
     );

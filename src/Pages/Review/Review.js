@@ -3,13 +3,20 @@ import { toast, ToastContainer } from 'react-toastify';
 import { AuthContext } from '../context/AuthProvider/AuthProvider';
 import ReviewEdit from './ReviewEdit';
 import 'react-toastify/dist/ReactToastify.css';
+import useTitle from '../../hook/useTitle';
 
 const Review = () => {
     const {user} = useContext(AuthContext);
+    useTitle('Review')
+
     const [review, setReview] = useState([]);
-    const [update, setUpdate] = useState({});
-    let today = new Date();
-    let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+    const [data, setData] = useState({});
+    const [updated, setUpdated] = useState(data);
+
+    console.log(updated)
+
+    // let today = new Date();
+    // let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
 
     useEffect(()=>{
         fetch(`http://localhost:5000/reviews?UserEmail=${user?.email}`)
@@ -47,14 +54,25 @@ const Review = () => {
         ref.current.click();
         fetch(`http://localhost:5000/review/${id}`)
         .then(res => res.json())
-        .then(data => setUpdate(data))
+        .then(data => setData(data))
     }
     const ref = useRef(null)
 
     const handelUpdate= event =>{
         event.preventDefault()
-        const textReview = event.target.review.value;
-        console.log(textReview)
+        const reviewText = event.target.review.value;
+        const newReview = {...data, reviewText}
+        setUpdated(newReview)
+
+        fetch(`http://localhost:5000/review/${data._id}`,{
+                method:'PUT',
+                headers:{
+                    'content-type' : 'application/json'
+                },
+                body: JSON.stringify(updated)
+            })
+            .then(res => res.json())
+            .then(data => console.log(data))
     }
     
 
@@ -68,8 +86,8 @@ const Review = () => {
                     <label htmlFor="my-modal-3" className="btn btn-outline text-white btn-sm btn-circle outline-white absolute right-2 top-2">✕</label>
                     <h3 className="text-lg text-center text-white font-bold">--- Edit Your Review ---</h3>
                     <div className="py-4">
-                        <form onClick={handelUpdate}  className="card-body rounded-lg ">
-                            <input type="text" name='review' className="textarea textarea-info text-white w-full mb-3" defaultValue={update.reviewText} placeholder="Bio"></input>
+                        <form onSubmit={handelUpdate}  className="card-body rounded-lg ">
+                            <input type="text" name='review' className="textarea textarea-info text-white w-full mb-3" defaultValue={data.reviewText} placeholder="Bio"></input>
 
                             <button type='submit' className="btn btn-outline w-1/5 text-white">Update</button>
                         </form>
