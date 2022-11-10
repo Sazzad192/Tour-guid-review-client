@@ -8,6 +8,7 @@ import Home from "../Pages/Home/Home"
 import Login from "../Pages/Login/Login"
 import Review from "../Pages/Review/Review"
 import Signup from "../Pages/Signup/Signup"
+import Update from "../Pages/Update/Update"
 
 const route = createBrowserRouter([
     {
@@ -47,6 +48,11 @@ const route = createBrowserRouter([
             {
                 path:'/blog',
                 element:<Blog></Blog>
+            },
+            {
+                path:'/update/:id',
+                element:<Update></Update>,
+                loader:({params}) => fetch(`http://localhost:5000/update/${params.id}`)
             }
         ]
     }

@@ -1,12 +1,17 @@
 import { GoogleAuthProvider } from 'firebase/auth';
 import React, { useContext } from 'react';
 import { AiOutlineGoogle, AiFillGithub} from 'react-icons/ai';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthProvider/AuthProvider';
 
 const Login = () => {
+    
     const {userSignin, googleUser} = useContext(AuthContext);
     const provaider = new GoogleAuthProvider();
+    const navigate = useNavigate();
+    const location = useLocation();
+
+    const from = location.state?.from?.pathname || '/';
 
 
     const handelSubmit = event =>{
@@ -21,8 +26,8 @@ const Login = () => {
         .then((userCredential) => {
             // Signed in 
             const user = userCredential.user;
-            console.log(user)
-            // ...
+            form.reset();
+            navigate(from, {replace:true})
           })
           .catch((error) => {
             const errorCode = error.code;

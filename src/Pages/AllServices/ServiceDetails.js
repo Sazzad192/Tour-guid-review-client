@@ -45,7 +45,7 @@ const ServiceDetails = () => {
             .then(data => {
                 if(data.acknowledged){
                     alert('Review added successfully')
-                    setReview([reviewData,...review])
+                    setReview([...review, reviewData])
                 }
                 else{
                     alert('Something went wrong! check again')
