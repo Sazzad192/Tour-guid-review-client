@@ -18,7 +18,8 @@ const Nav = () => {
 
     const navItems = <>
         <li><Link to={'/'}>Home</Link></li>
-        <li><Link to={'/services'}>My Service</Link></li>
+        <li><Link to={'/services'}>Services</Link></li>
+        <li><Link to={'/blog'}>Blog</Link></li>
         {
             user?.uid ?  <li><Link to={'/addService'}>Add-Service</Link></li> :
             <li></li>

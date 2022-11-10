@@ -56,6 +56,7 @@ const Review = () => {
         const textReview = event.target.review.value;
         console.log(textReview)
     }
+    
 
     return (
         <div className='mb-52'>
@@ -70,7 +71,7 @@ const Review = () => {
                         <form onClick={handelUpdate}  className="card-body rounded-lg ">
                             <input type="text" name='review' className="textarea textarea-info text-white w-full mb-3" defaultValue={update.reviewText} placeholder="Bio"></input>
 
-                            <button type='submit' className="btn btn-outline w-1/5">Update</button>
+                            <button type='submit' className="btn btn-outline w-1/5 text-white">Update</button>
                         </form>
                     </div>
                 </div>

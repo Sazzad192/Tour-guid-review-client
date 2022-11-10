@@ -3,6 +3,7 @@ import Main from "../Layout/Main"
 import AddServices from "../Pages/AllServices/AddServices"
 import ServiceDetails from "../Pages/AllServices/ServiceDetails"
 import ServicesAll from "../Pages/AllServices/ServicesAll"
+import Blog from "../Pages/Blog/Blog"
 import Home from "../Pages/Home/Home"
 import Login from "../Pages/Login/Login"
 import Review from "../Pages/Review/Review"
@@ -42,6 +43,10 @@ const route = createBrowserRouter([
             {
                 path:'/signup',
                 element:<Signup></Signup>
+            },
+            {
+                path:'/blog',
+                element:<Blog></Blog>
             }
         ]
     }
