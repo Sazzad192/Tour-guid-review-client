@@ -40,7 +40,7 @@ const route = createBrowserRouter([
             },
             {
                 path:'/review',
-                element: <PrivateRoute><Review></Review></PrivateRoute>,
+                element: <PrivateRoute><Review></Review></PrivateRoute>
             },
             {
                 path:'/signup',

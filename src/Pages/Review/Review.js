@@ -13,11 +13,6 @@ const Review = () => {
     const [data, setData] = useState({});
     const [updated, setUpdated] = useState(data);
 
-    console.log(updated)
-
-    // let today = new Date();
-    // let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-
     useEffect(()=>{
         fetch(`http://localhost:5000/reviews?UserEmail=${user?.email}`)
         .then(res => res.json())
@@ -60,19 +55,27 @@ const Review = () => {
 
     const handelUpdate= event =>{
         event.preventDefault()
-        const reviewText = event.target.review.value;
-        const newReview = {...data, reviewText}
-        setUpdated(newReview)
-
         fetch(`http://localhost:5000/review/${data._id}`,{
                 method:'PUT',
-                headers:{
+                headers: {
                     'content-type' : 'application/json'
                 },
                 body: JSON.stringify(updated)
             })
             .then(res => res.json())
-            .then(data => console.log(data))
+            .then(data => {
+                if(data.matchedCount>0){
+                    toast('Data updated, just do a reload')
+                }
+            })
+    }
+
+    const handelInputChange = event =>{
+        const field = event.target.name;
+        const value = event.target.value;
+        const newReview = {...updated}
+        newReview[field]= value;
+        setUpdated(newReview)
     }
     
 
@@ -87,7 +90,7 @@ const Review = () => {
                     <h3 className="text-lg text-center text-white font-bold">--- Edit Your Review ---</h3>
                     <div className="py-4">
                         <form onSubmit={handelUpdate}  className="card-body rounded-lg ">
-                            <input type="text" name='review' className="textarea textarea-info text-white w-full mb-3" defaultValue={data.reviewText} placeholder="Bio"></input>
+                            <input type="text" onChange={handelInputChange} name='review' className="textarea textarea-info text-white w-full mb-3" defaultValue={data.reviewText} placeholder="Bio"></input>
 
                             <button type='submit' className="btn btn-outline w-1/5 text-white">Update</button>
                         </form>
